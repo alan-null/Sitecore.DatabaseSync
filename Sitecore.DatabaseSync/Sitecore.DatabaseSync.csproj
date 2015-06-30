@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseSynchronizer.cs" />
+    <Compile Include="Helpers\ItemSynchronization.cs" />
     <Compile Include="ItemUpdateHook.cs" />
     <Compile Include="Models\ChangeRoot.cs" />
     <Compile Include="Models\IDatabaseSyncChangesProvider.cs" />
