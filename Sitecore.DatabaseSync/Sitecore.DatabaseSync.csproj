@@ -54,8 +54,6 @@
     <Compile Include="Pipelines\UpdateItems\FindChangedRoots.cs" />
     <Compile Include="Pipelines\UpdateItems\IDataSyncPipelineProcessor.cs" />
     <Compile Include="Pipelines\UpdateItems\LoadChangedItems.cs" />
-    <Compile Include="Pipelines\UpdateItems\LoadChangedTreeRoots.cs" />
-    <Compile Include="Pipelines\UpdateItems\OptimizeChangeRoots.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\BasicProvider.cs" />
   </ItemGroup>

@@ -7,6 +7,6 @@ namespace Sitecore.DatabaseSync.Pipelines.UpdateItems
     public class DataSyncPipelineArgs : PipelineArgs
     {
         public IDatabaseSyncChangesProvider Provider { get; set; }
-        public List<ChangeRoot> ChangeRoots { get; set; }
+        public IEnumerable<ChangeRoot> ChangeRoots { get; set; }
     }
 }

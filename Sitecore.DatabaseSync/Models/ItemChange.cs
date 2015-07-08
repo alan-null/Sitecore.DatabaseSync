@@ -2,7 +2,6 @@
 {
     public class ItemChange
     {
-        public string Database { get; set; }
-        public string SitecorePath { get; set; }
+        public string PhysicalPath { get; set; }
     }
 }

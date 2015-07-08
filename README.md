@@ -23,6 +23,7 @@ You can easily implement your own provider.
 
 #### Steps to implement own provider
 **1**  Create new class library project
+
 **2**  Crete new class and implement `IDatabaseSyncChangesProvider` interface
 All you have to do is to provide list of items that were changed since last time. Returned objects type below:
 ```csharp

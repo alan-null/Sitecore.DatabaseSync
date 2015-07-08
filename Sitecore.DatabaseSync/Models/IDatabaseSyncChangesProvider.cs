@@ -4,6 +4,6 @@ namespace Sitecore.DatabaseSync.Models
 {
     public interface IDatabaseSyncChangesProvider
     {
-        List<ItemChange> GetItems();
+        IEnumerable<ItemChange> GetItems();
     }
 }

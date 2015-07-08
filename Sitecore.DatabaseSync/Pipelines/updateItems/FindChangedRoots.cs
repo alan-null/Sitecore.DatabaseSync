@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using Sitecore.Configuration;
-using Sitecore.Data.Items;
-using Sitecore.Data.Serialization;
+using Sitecore.Data.Serialization.ObjectModel;
 using Sitecore.DatabaseSync.Models;
 
 namespace Sitecore.DatabaseSync.Pipelines.UpdateItems
@@ -16,50 +13,29 @@ namespace Sitecore.DatabaseSync.Pipelines.UpdateItems
 
             foreach (ItemChange change in args.Provider.GetItems())
             {
-                Item item = Factory.GetDatabase(change.Database).GetItem(change.SitecorePath);
-                if (item == null)
+                SyncItem syncItem = GetSyncItem(change.PhysicalPath);
+                if (syncItem != null)
                 {
-                    string tempPath = change.SitecorePath;
-                    do
-                    {
-                        tempPath = GetParentPath(tempPath);
-                        item = Factory.GetDatabase(change.Database).GetItem(tempPath);
-
-                    } while (item == null);
-
-                    ChangeRoot root = new ChangeRoot(item)
-                    {
-                        Type = RootType.Tree
-                    };
-                    roots.Add(root);
-                }
-                else
-                {
-                    if (SerializationDataDoesNotExists(item))
-                    {
-                        item.Recycle();
-                    }
-                    ChangeRoot root = new ChangeRoot(item)
+                    ChangeRoot root = new ChangeRoot(change)
                     {
                         Type = RootType.Item
                     };
                     roots.Add(root);
                 }
-                args.ChangeRoots = roots;
             }
+            args.ChangeRoots = roots;
         }
 
-        private string GetParentPath(string path)
+        public static SyncItem GetSyncItem(string path)
         {
-            path = path.TrimEnd('/');
-            var lastIndexOf = path.LastIndexOf("/", StringComparison.InvariantCultureIgnoreCase);
-            return path.Substring(0, lastIndexOf).TrimEnd('/');
-        }
-
-        private bool SerializationDataDoesNotExists(Item item)
-        {
-            string serializationPath = PathUtils.GetFilePath(new ItemReference(item).ToString());
-            return !File.Exists(serializationPath);
+            if (File.Exists(path))
+            {
+                using (TextReader reader = new StreamReader(File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read)))
+                {
+                    return SyncItem.ReadItem(new Tokenizer(reader));
+                }
+            }
+            return null;
         }
     }
 }

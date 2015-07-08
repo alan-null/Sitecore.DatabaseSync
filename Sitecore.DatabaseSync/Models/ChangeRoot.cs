@@ -1,22 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Sitecore.Data.Items;
-
-namespace Sitecore.DatabaseSync.Models
+﻿namespace Sitecore.DatabaseSync.Models
 {
     public class ChangeRoot
     {
-        public Item Item { get; set; }
         public RootType Type { get; set; }
+        public string PhysicalPath { get; set; }
 
-        public ChangeRoot(Item item)
+        public ChangeRoot(ItemChange itemChange)
         {
-            Item = item;
+            PhysicalPath = itemChange.PhysicalPath;
         }
 
-        public bool IsChildOfTree(IEnumerable<ChangeRoot> treeRoots)
+        public ChangeRoot(string path)
         {
-            return treeRoots.Any(x => x.Item.Paths.IsAncestorOf(Item));
+            PhysicalPath = path;
         }
     }
 }
