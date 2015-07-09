@@ -1,3 +1,9 @@
+---
+# This project has been discontinued.
+Try [Unicorn](https://github.com/kamsar/Unicorn) by @kamsar instead.
+
+---
+
 # Sitecore.DatabaseSync
 Sitecore module for database synchronization. 
 
